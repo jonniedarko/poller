@@ -5,7 +5,7 @@ angular.module('pollsApp')
     $scope.polls = Poll.query();
   })
   .controller('PollViewCtrl', function ($scope, $routeParams, Poll){
-    $scope.poll = Poll.get({pollid: $routeParams.id});
+    $scope.poll = Poll.get({pollId: $routeParams.id});
     console.log("poll.choices", $scope.poll.choices);
     $scope.vote = function() {};
   })
