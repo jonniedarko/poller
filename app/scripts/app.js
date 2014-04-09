@@ -4,7 +4,8 @@ angular.module('pollsApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'pollServices'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -28,6 +29,16 @@ angular.module('pollsApp', [
       .when('/poll', {
         templateUrl: 'partials/poll',
         controller: 'PollCtrl',
+        authenticate: true
+      })
+      .when('/poll/view/:id',{
+        templateUrl: 'partials/pollview',
+        controller: 'PollViewCtrl',
+        authenticate: true
+      })
+      .when('/poll/new',{
+        templateUrl: 'partials/newpoll',
+        controller: 'NewPollCtrl',
         authenticate: true
       })
       .otherwise({
