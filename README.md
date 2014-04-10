@@ -373,7 +373,7 @@ angular.module('pollsApp')
     $scope.polls = Poll.query();
   })
   .controller('PollViewCtrl', function ($scope, $routeParams, Poll){
-    $scope.poll = Poll.get({pollid: $routeParams.id});
+    $scope.poll = Poll.get({pollId: $routeParams.id});
     $scope.vote = function() {};
   })
   .controller('NewPollCtrl', function ($scope, Poll){
