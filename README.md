@@ -413,3 +413,9 @@ angular.module('pollsApp')
       };
   });
 ```
+
+
+All that left now is to add the voting functionality and allow for realtiem updates.
+
+
+run `npm install socket.io --save`

@@ -4,10 +4,33 @@ angular.module('pollsApp')
   .controller('PollCtrl', function ($scope, Poll) {
     $scope.polls = Poll.query();
   })
-  .controller('PollViewCtrl', function ($scope, $routeParams, Poll){
+  .controller('PollViewCtrl', function ($scope, $routeParams, Poll, socket){
     $scope.poll = Poll.get({pollId: $routeParams.id});
-    console.log("poll.choices", $scope.poll.choices);
-    $scope.vote = function() {};
+    //console.log("poll.choices", $scope.poll.choices);
+    //$scope.vote = function() {};
+    socket.on('myvote', function(data) {
+            console.dir(data);
+            if(data._id === $routeParams.pollId) {
+              $scope.poll = data;
+            }
+          });
+          socket.on('vote', function(data) {
+            console.dir(data);
+            if(data._id === $routeParams.pollId) {
+              $scope.poll.choices = data.choices;
+              $scope.poll.totalVotes = data.totalVotes;
+            }
+          });
+          $scope.vote = function() {
+            var pollId = $scope.poll._id,
+                choiceId = $scope.poll.userVote;
+            if(choiceId) {
+              var voteObj = { poll_id: pollId, choice: choiceId };
+              socket.emit('send:vote', voteObj);
+            } else {
+              alert('You must select an option to vote for');
+            }
+          };
   })
   .controller('NewPollCtrl', function ($scope, $location, Poll){
      $scope.poll = {
