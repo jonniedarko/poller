@@ -10,13 +10,13 @@ angular.module('pollsApp')
     //$scope.vote = function() {};
     socket.on('myvote', function(data) {
             console.dir(data);
-            if(data._id === $routeParams.pollId) {
+            if(data._id === $routeParams.id) {
               $scope.poll = data;
             }
           });
           socket.on('vote', function(data) {
             console.dir(data);
-            if(data._id === $routeParams.pollId) {
+            if(data._id === $routeParams.id) {
               $scope.poll.choices = data.choices;
               $scope.poll.totalVotes = data.totalVotes;
             }
