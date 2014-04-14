@@ -1,3 +1,5 @@
+based on the tutorial by [IBM](http://www.ibm.com/developerworks/library/wa-nodejs-polling-app/)
+
 ###Overview
 what is the Mean stack, Why use it, basic tools used, folder structure and naming convention
 
@@ -85,7 +87,7 @@ So Lets Get Busy......
 
 1 Create new add new routes:
 
-[option B] yo
+######[option B] yo
   - `yo angular-fullstack:route newPoll`
   - `yo angular-fullstack:route pollView`
     -> update urls as below
@@ -391,8 +393,8 @@ add the following :
 Ok so right now what we hav just done makes no difference to the client side, we need to hook it all up with an Angular Service, or in our case a Factory
 
 So lets Create our first Factory
-[option A] yo angular-fullstack:factory pollFactory
-[option B] `app/scripts/services/poll.factory.js` and add the following
+######[option A] yo angular-fullstack:factory pollFactory
+######[option B] `app/scripts/services/poll.factory.js` and add the following
 
 create new module to allow adding dependencies 'ngFactory'
 [ngResource API reference](http://docs.angularjs.org/api/ngResource/service/$resource)
@@ -515,17 +517,21 @@ run `npm install socket.io --save`
 Now we need to set up our socket to listen on our server
 
 change :
+
 ```js
 app.listen(config.port, function () {
   console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
-});```
+});
+```
 
 to this:
+
 ```js
 var io = require('socket.io').listen(app.listen(config.port));
 var poll = require('./lib/controllers/polls');
 io.sockets.on('connection', poll.vote);
 ```
+
 Now we need to add our vote method in our poll routes module
 
 ```js
@@ -564,6 +570,7 @@ socket.handshake.address.address;
 In order to interact with this we need another to do 2 thinngs
  - add the socket.io script to the Index page `<script src="/socket.io/socket.io.js"></script>`
  - Create a new factory on the:
+
 ```js
  .factory('socket', function($rootScope) {
             var socket = io.connect();
@@ -588,7 +595,6 @@ In order to interact with this we need another to do 2 thinngs
               }
             };
           });
-
 ```
 
 finally lets add our new methods inside out pollView controller
