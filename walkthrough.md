@@ -12,9 +12,9 @@ what is the Mean stack, Why use it, basic tools used, folder structure and namin
 ####Basic Skeleton App set up
 
 #####Step 1 : run `yo angular-fullstack poller`
-1. Don't bother with Sas
+1. Don't include with Sas (out of scope for this tutorial)
 2. Include Bootstrap
-3. Include angular optional modules (require for passport and single page multi-view app)
+3. Include angular optional modules (required for passport and single page multi-view app's)
 4. Include mongoose
 5. Include Passport
 
@@ -26,9 +26,9 @@ what is the Mean stack, Why use it, basic tools used, folder structure and namin
 
 ####Creating our 1st new View:
 
-Step 4: add new route "Poll"
+#####Step 4: add new route "Poll"
 ######[Option A]: The non Yeoman way
-#######1. Create the following new files:
+#######4.1. Create the following new files:
 
 - app/views/partials/poll.html
 
@@ -44,7 +44,7 @@ angular.module('pollsApp')
     $scope.user = "John";
   });
 ```
-#######2. Update our Angular app routes
+#######4.2. Update our Angular app routes
 - Add the following conditions to our routeprovider in `app/scripts/app.js`
 ```js
 .when('/poll', {
@@ -54,11 +54,11 @@ angular.module('pollsApp')
       })
 ```
 
-#######3. Add our new controller script to our `index.html` Page
+#######4.3. Add our new controller script to our `index.html` Page
 ```html
 <script src="scripts/controllers/poll.controller.js"></script>
 ```
-#######4. Add a link to Our new View in the Navigation bar
+#######4.4. Add a link to Our new View in the Navigation bar
 - inside our navbar.controller, add the following to the `$scope.menu` variable
 ```js
 {
@@ -76,8 +76,6 @@ angular.module('pollsApp')
 }
 ```
 
-
-
 #####BAM! A New View (",)
 
 So Lets Get Busy......
@@ -85,9 +83,7 @@ So Lets Get Busy......
 
 
 
-1 Create new add new routes:
-
-######[option B] yo
+#####Step 5: Create new add new routes (using Yeoman):
   - `yo angular-fullstack:route newPoll`
   - `yo angular-fullstack:route pollView`
     -> update urls as below
@@ -393,8 +389,8 @@ add the following :
 Ok so right now what we hav just done makes no difference to the client side, we need to hook it all up with an Angular Service, or in our case a Factory
 
 So lets Create our first Factory
-######[option A] yo angular-fullstack:factory pollFactory
-######[option B] `app/scripts/services/poll.factory.js` and add the following
+[option A] yo angular-fullstack:factory pollFactory
+[option B] `app/scripts/services/poll.factory.js` and add the following
 
 create new module to allow adding dependencies 'ngFactory'
 [ngResource API reference](http://docs.angularjs.org/api/ngResource/service/$resource)
@@ -517,21 +513,17 @@ run `npm install socket.io --save`
 Now we need to set up our socket to listen on our server
 
 change :
-
 ```js
 app.listen(config.port, function () {
   console.log('Express server listening on port %d in %s mode', config.port, app.get('env'));
-});
-```
+});```
 
 to this:
-
 ```js
 var io = require('socket.io').listen(app.listen(config.port));
 var poll = require('./lib/controllers/polls');
 io.sockets.on('connection', poll.vote);
 ```
-
 Now we need to add our vote method in our poll routes module
 
 ```js
@@ -570,7 +562,6 @@ socket.handshake.address.address;
 In order to interact with this we need another to do 2 thinngs
  - add the socket.io script to the Index page `<script src="/socket.io/socket.io.js"></script>`
  - Create a new factory on the:
-
 ```js
  .factory('socket', function($rootScope) {
             var socket = io.connect();
@@ -595,6 +586,7 @@ In order to interact with this we need another to do 2 thinngs
               }
             };
           });
+
 ```
 
 finally lets add our new methods inside out pollView controller
