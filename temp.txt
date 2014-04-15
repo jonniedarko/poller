@@ -1,0 +1,90 @@
+
+//Very Simple Node Server
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(9000, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:9000/');
+
+// using Express Serve static HTML
+var express = require('express'),
+    app = express.createServer();
+
+app.configure(function(){
+  app.use(express.static(__dirname + '/static'));
+});
+app.get('/', function(req, res){
+  res.sendfile(__dirname + '/index.html');
+});
+app.listen(3000);
+
+
+
+yeoman install
+includes: 
+grunt - task runner
+bower - package manager for client
+
+bootstrap - style
+angular frameworks:
+	resource
+	cookies
+	sanitize
+	route
+expressjs
+monogoosejs
+passportjs
+
+
+mongod
+grunt serve
+
+
+Application walkthrough
+home , login, signup, settings (Auth)
+
+folderstructure
+ test: tests
+ lib : Server side modules
+ 	config: contains configuration modules for different enviorments,
+ 			Passport.js, express.js and app config + dummydata.js
+ 	controllers: modules for model, restfulservces or custom apis
+ 	models: mongoose models
+ 	routes.js : url route mapping to controller functions
+ 	middleware.js : Passport middle ware used to securly wrap routes and functions
+ Server.js : main 
+ package.json : node (npm) dependencies and project info
+ bower.json: the package.json for client side dependencies
+
+app : client side stuff 
+	bower_components: third party scripts & style, i.e. angular, bootstrap, Jquery, etc
+	scripts: Angularjs Controllers, directives and services
+	views: contain our main HTML files and partials used by Angularjs
+
+Explain Client side Angular App
+	App.js contains angular app initial definition - script included in index.html
+		Routes: allows us to load different templates and controllers for url routes
+				for single page applications
+	controllers: for indivual views
+	services: used to interact with common functionality or external services such
+				as Restfull Apis or our express server
+	directives: common functionality built into custom HTML elmenent
+
+
+Adding new route to app:
+	Yeoman way (https://github.com/DaftMonk/generator-angular-fullstack)
+		yo angular-fullstack:route hello
+		creates news new controller, new controller test and a route template
+		it modifies our app.js to add our route and index.html to include our new controller script
+		What we need to do is add to nav bar:
+			ng-show: will show when current user isn't false
+
+try new route: middleware(mention authenticate: true)
+
+
+run the following 
+yo angular-fullstack:route pollView --uri=poll/view/:id
+yo angular-fullstack:route pollNew --uri=poll/new
+
+
